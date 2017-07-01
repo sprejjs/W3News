@@ -31,11 +31,11 @@ public class NewYorkTimesFragment extends Fragment implements LoaderManager.Load
 
 
 
-    private static String REQUEST_URL;
+    private  String REQUEST_URL;
 
 
 
-    private static final int NEWS_LOADER_ID = 3;
+    private final int NEWS_LOADER_ID = 3;
 
     private NewsAdapter mAdapter;
 
@@ -55,7 +55,7 @@ public class NewYorkTimesFragment extends Fragment implements LoaderManager.Load
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.newsview, container, false);
 
-        mWebView = (WebView) rootView.findViewById(R.id.webview);
+        mWebView = (WebView) rootView.findViewById(R.id.xwebview);
         mWebView.setVisibility(View.GONE);
         progress = (ProgressBar) rootView.findViewById(R.id.loading_spinner);
 
@@ -72,7 +72,7 @@ public class NewYorkTimesFragment extends Fragment implements LoaderManager.Load
 
         ListView NewsListView = (ListView) rootView.findViewById(R.id.list);
 
-        // Create a new adapter that takes an empty list of earthquakes as input
+        // Create a new adapter that takes an empty list of news as input
         mAdapter = new NewsAdapter(getActivity(), new ArrayList<News>());
 
         // Set the adapter on the {@link ListView}
@@ -111,7 +111,7 @@ public class NewYorkTimesFragment extends Fragment implements LoaderManager.Load
         NewsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                // Find the current earthquake that was clicked on
+                // Find the current news that was clicked on
                 News currentNews = mAdapter.getItem(position);
 
 
@@ -159,10 +159,10 @@ public class NewYorkTimesFragment extends Fragment implements LoaderManager.Load
     public void onLoadFinished(Loader<List<News>> loader, List<News> news) {
 
         Log.i(LOG_TAG, "onFinishLoader executing");
-        // Clear the adapter of previous earthquake data
+        // Clear the adapter of previous news data
         mAdapter.clear();
 
-        // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
+        // If there is a valid list of {@link news}s, then add them to the adapter's
         // data set. This will trigger the ListView to update.
         if (news != null && !news.isEmpty()) {
             mAdapter.addAll(news);

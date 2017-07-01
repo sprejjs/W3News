@@ -21,8 +21,7 @@ import java.util.ArrayList;
 
 public class NewsAdapter extends ArrayAdapter<News> {
 
-    public NewsAdapter(Activity context, ArrayList<News> word)
-    {
+    public NewsAdapter(Activity context, ArrayList<News> word) {
         super(context, 0, word);
 
 
@@ -39,7 +38,6 @@ public class NewsAdapter extends ArrayAdapter<News> {
         }
 
 
-
         // Get the {@link AndroidFlavor} object located at this position in the list
         News currentNews = getItem(position);
 
@@ -47,13 +45,13 @@ public class NewsAdapter extends ArrayAdapter<News> {
         TextView titleView = (TextView) listItemView.findViewById(R.id.title);
         // Format the magnitude to show 1 decimal place
         String title = currentNews.getTitle();
-        // Display the magnitude of the current earthquake in that TextView
+        // Display the magnitude of the current news in that TextView
         titleView.setText(title);
 
         TextView descView = (TextView) listItemView.findViewById(R.id.desc);
         // Format the magnitude to show 1 decimal place
         String desc = currentNews.getDesc();
-        // Display the magnitude of the current earthquake in that TextView
+        // Display the magnitude of the current news in that TextView
         descView.setText(desc);
 
         ImageView imageurl = (ImageView) listItemView.findViewById(R.id.image);
@@ -62,7 +60,6 @@ public class NewsAdapter extends ArrayAdapter<News> {
         Glide.with(c)
                 .load(imagelink)
                 .into(imageurl);
-
 
 
         // Return the list item view that is now showing the appropriate data

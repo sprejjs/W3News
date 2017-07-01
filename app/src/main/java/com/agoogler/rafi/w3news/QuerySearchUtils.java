@@ -20,12 +20,10 @@ import java.util.List;
 import static com.agoogler.rafi.w3news.MainActivity.LOG_TAG;
 
 
-public final class QueryUtils {
+public final class QuerySearchUtils {
 
 
-    private QueryUtils() {
-
-        //An empty private constructor makes sure that the class is not going to be initialised.
+    private QuerySearchUtils() {
     }
 
     public static List<News> fetchNewseData(String requestUrl) {
@@ -49,7 +47,7 @@ public final class QueryUtils {
         }
 
         // Extract relevant fields from the JSON response and create an {@link Event} object
-        List<News> news = extractFeatureFromJson(jsonResponse);
+        List<News>  news = extractFeatureFromJson(jsonResponse);
 
         // Return the {@link Event}
         return news;
@@ -131,30 +129,38 @@ public final class QueryUtils {
             // build up a list of news objects with the corresponding data.
 
             JSONObject baseJasonResponse = new JSONObject(newsJSON);
-            JSONArray newsArray = baseJasonResponse.getJSONArray("articles");
+            JSONObject Response = baseJasonResponse.getJSONObject("response");
+            JSONArray newsArray = Response.getJSONArray("results");
 
-            for (int i = 0; i < newsArray.length(); i++) {
+            for ( int i=0; i< newsArray.length();i++)
+            {
 
 
                 JSONObject currentNews = newsArray.getJSONObject(i);
 
-                String author = currentNews.getString("author");
-                String title = currentNews.getString("title");
-                String description = currentNews.getString("description");
-                String url = currentNews.getString("url");
-                String urlToImag = currentNews.getString("urlToImage");
-                String publishedAt = currentNews.getString("publishedAt");
-                String body = "";
+                String author = currentNews.getString("sectionName");
+                String title = currentNews.getString("webTitle");
 
-                News news = new News(author, title, description, url, urlToImag, publishedAt, body);
+                JSONObject newsinfo = currentNews.getJSONObject("fields");
+
+                String description = newsinfo.getString("trailText");
+                String url = currentNews.getString("webUrl");
+                String urlToImag = newsinfo.getString("thumbnail");
+                String body = newsinfo.getString("body");
+                String publishedAt = currentNews.getString("webPublicationDate");
+
+                News news = new News(author,title,description,url,urlToImag,publishedAt,body);
 
 
                 News.add(news);
 
 
+
             }
 
-        } catch (JSONException e) {
+        }
+
+        catch (JSONException e) {
             // If an error is thrown when executing any of the above statements in the "try" block,
             // catch the exception here, so the app doesn't crash. Print a log message
             // with the message from the exception.

@@ -11,46 +11,45 @@ public class News {
     private String url;
     private String urlToImage;
     private String publishedAt;
+    private String body;
 
-    public News( String mauthor, String mtitle, String mdesc, String mUrl, String murlToimage, String mpublisedAt)
-    {
+    public News(String mauthor, String mtitle, String mdesc, String mUrl, String murlToimage, String mpublisedAt, String mBody) {
         author = mauthor;
         title = mtitle;
         desc = mdesc;
         url = mUrl;
         urlToImage = murlToimage;
         publishedAt = mpublisedAt;
+        body = mBody;
 
     }
 
-    String getAuthor()
-    {
+    String getAuthor() {
         return author;
     }
 
-    String getTitle()
-    {
+    String getTitle() {
         return title;
     }
 
-    String getDesc()
-    {
+    String getDesc() {
         return desc;
     }
 
-    String getUrl()
-    {
+    String getUrl() {
         return url;
     }
 
-    String getUrlToImage()
-    {
+    String getUrlToImage() {
         return urlToImage;
     }
 
-    String getPublishedAt()
-    {
+    String getPublishedAt() {
         return publishedAt;
+    }
+
+    String getBody() {
+        return body;
     }
 
 }

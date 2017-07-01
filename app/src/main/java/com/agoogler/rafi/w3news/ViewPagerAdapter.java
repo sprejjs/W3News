@@ -2,13 +2,13 @@ package com.agoogler.rafi.w3news;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 /**
  * Created by rafi on 6/12/17.
  */
 
-public class ViewPagerAdapter extends FragmentPagerAdapter  {
+public class ViewPagerAdapter extends FragmentStatePagerAdapter  {
 
     public ViewPagerAdapter(FragmentManager fm) {
         super(fm);

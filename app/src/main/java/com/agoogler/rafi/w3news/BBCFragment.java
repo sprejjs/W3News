@@ -27,16 +27,11 @@ import static com.agoogler.rafi.w3news.MainActivity.LOG_TAG;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BBCFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<News>>  {
+public class BBCFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<News>> {
 
 
-
-    private static String REQUEST_URL;
-
-
-
-    private static final int NEWS_LOADER_ID = 2;
-
+    private final int NEWS_LOADER_ID = 2;
+    private String REQUEST_URL;
     private NewsAdapter mAdapter;
 
     private TextView mEmptyStateTextView;
@@ -55,7 +50,7 @@ public class BBCFragment extends Fragment implements LoaderManager.LoaderCallbac
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.newsview, container, false);
 
-        mWebView = (WebView) rootView.findViewById(R.id.webview);
+        mWebView = (WebView) rootView.findViewById(R.id.xwebview);
         mWebView.setVisibility(View.GONE);
         progress = (ProgressBar) rootView.findViewById(R.id.loading_spinner);
 
@@ -68,11 +63,9 @@ public class BBCFragment extends Fragment implements LoaderManager.LoaderCallbac
                 activeNetwork.isConnectedOrConnecting();
 
 
-
-
         ListView NewsListView = (ListView) rootView.findViewById(R.id.list);
 
-        // Create a new adapter that takes an empty list of earthquakes as input
+        // Create a new adapter that takes an empty list of news as input
         mAdapter = new NewsAdapter(getActivity(), new ArrayList<News>());
 
         // Set the adapter on the {@link ListView}
@@ -82,7 +75,7 @@ public class BBCFragment extends Fragment implements LoaderManager.LoaderCallbac
         mEmptyStateTextView = (TextView) rootView.findViewById(R.id.empty_view);
         NewsListView.setEmptyView(mEmptyStateTextView);
 
-        if(isConnected) {
+        if (isConnected) {
 
 
             LoaderManager loaderManager = getActivity().getLoaderManager();
@@ -92,7 +85,8 @@ public class BBCFragment extends Fragment implements LoaderManager.LoaderCallbac
             // because this activity implements the LoaderCallbacks interface).
 
             Bundle b = new Bundle();
-            REQUEST_URL ="https://newsapi.org/v1/articles?source=bbc-news&sortBy=top&apiKey=1e4b682134774d0bb89f6d12a78f9028";
+
+            REQUEST_URL = "https://newsapi.org/v1/articles?source=bbc-news&sortBy=top&apiKey=1e4b682134774d0bb89f6d12a78f9028";
 
             b.putString("REQUEST_URL", REQUEST_URL);
 
@@ -100,9 +94,7 @@ public class BBCFragment extends Fragment implements LoaderManager.LoaderCallbac
             loaderManager.initLoader(NEWS_LOADER_ID, b, this);
 
 
-        }
-        else
-        {
+        } else {
 
             progress.setVisibility(View.INVISIBLE);
             mEmptyStateTextView.setText(R.string.no_internet);
@@ -111,7 +103,7 @@ public class BBCFragment extends Fragment implements LoaderManager.LoaderCallbac
         NewsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                // Find the current earthquake that was clicked on
+                // Find the current news that was clicked on
                 News currentNews = mAdapter.getItem(position);
 
 
@@ -120,6 +112,7 @@ public class BBCFragment extends Fragment implements LoaderManager.LoaderCallbac
                 progress.setVisibility(View.VISIBLE);
 
                 mWebView.setVisibility(View.VISIBLE);
+
 
                 mWebView.loadUrl(newsUrl);
 
@@ -133,9 +126,6 @@ public class BBCFragment extends Fragment implements LoaderManager.LoaderCallbac
                     }
 
 
-
-
-
                 });
 
 
@@ -145,10 +135,8 @@ public class BBCFragment extends Fragment implements LoaderManager.LoaderCallbac
         });
 
 
-
         return rootView;
     }
-
 
 
     @Override
@@ -157,7 +145,7 @@ public class BBCFragment extends Fragment implements LoaderManager.LoaderCallbac
 
         String tmp = args.getString("REQUEST_URL");
 
-        return new NewsLoader(getActivity(),tmp);
+        return new NewsLoader(getActivity(), tmp);
 
 
     }
@@ -166,10 +154,10 @@ public class BBCFragment extends Fragment implements LoaderManager.LoaderCallbac
     public void onLoadFinished(Loader<List<News>> loader, List<News> news) {
 
         Log.i(LOG_TAG, "onFinishLoader executing");
-        // Clear the adapter of previous earthquake data
+        // Clear the adapter of previous news data
         mAdapter.clear();
 
-        // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
+        // If there is a valid list of {@link news}s, then add them to the adapter's
         // data set. This will trigger the ListView to update.
         if (news != null && !news.isEmpty()) {
             mAdapter.addAll(news);

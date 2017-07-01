@@ -7,11 +7,10 @@ import android.util.Log;
 import java.util.List;
 
 /**
- * Created by rafi on 6/10/17.
+ * Created by rafi on 6/16/17.
  */
 
-public class NewsLoader extends AsyncTaskLoader<List<News>> {
-
+public class NewsSearchLoader extends AsyncTaskLoader<List<News>> {
 
     private static final String LOG_TAG = NewsLoader.class.getName();
 
@@ -20,7 +19,7 @@ public class NewsLoader extends AsyncTaskLoader<List<News>> {
      */
     private String mUrl;
 
-    public NewsLoader(Context context, String url) {
+    public NewsSearchLoader(Context context, String url) {
 
         super(context);
         mUrl = url;
@@ -46,8 +45,8 @@ public class NewsLoader extends AsyncTaskLoader<List<News>> {
             return null;
         }
 
-        // Perform the network request, parse the response, and extract a list of news.
-        List<News> news = QueryUtils.fetchNewseData(mUrl);
+        // Perform the network request, parse the response, and extract a list of earthquakes.
+        List<News> news = QuerySearchUtils.fetchNewseData(mUrl);
         return news;
     }
 }
