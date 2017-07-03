@@ -3,6 +3,7 @@ package com.agoogler.rafi.w3news;
 
 import android.app.LoaderManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.Loader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -109,26 +110,9 @@ public class BBCFragment extends Fragment implements LoaderManager.LoaderCallbac
 
                 String newsUrl = currentNews.getUrl();
 
-                progress.setVisibility(View.VISIBLE);
-
-                mWebView.setVisibility(View.VISIBLE);
-
-
-                mWebView.loadUrl(newsUrl);
-
-
-                mWebView.setWebViewClient(new WebViewClient() {
-                    @Override
-                    public void onPageFinished(WebView view, String url) {
-                        super.onPageFinished(mWebView, url);
-                        progress.setVisibility(View.GONE);
-
-                    }
-
-
-                });
-
-
+                Intent detailsIntent = new Intent(getContext(), ArticleDetailsActivity.class);
+                detailsIntent.putExtra(ArticleDetailsActivity.KEY_URL, newsUrl);
+                startActivity(detailsIntent);
             }
 
 

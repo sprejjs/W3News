@@ -126,37 +126,12 @@ public class NewsSearchActivity extends AppCompatActivity implements LoaderManag
         NewsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-
-                //String newsBody = currentNews.getBody();
-
-                // Intent i = new Intent(getApplicationContext(), NewsPreviewActivity.class);
-
-                // i.putExtra("EXTRA_MESSAGE", newsBody);
-
-                // startActivity(i);
-
-
                 News currentNews = mAdapter.getItem(position);
                 String newsUrl = currentNews.getUrl();
 
-
-                progress.setVisibility(View.VISIBLE);
-
-                mWebView.setVisibility(View.VISIBLE);
-
-                mWebView.loadUrl(newsUrl);
-
-                mWebView.setWebViewClient(new WebViewClient() {
-                    @Override
-                    public void onPageFinished(WebView view, String url) {
-                        super.onPageFinished(mWebView, url);
-                        progress.setVisibility(View.GONE);
-
-                    }
-
-                });
-
-
+                Intent detailsIntent = new Intent(getApplicationContext(), ArticleDetailsActivity.class);
+                detailsIntent.putExtra(ArticleDetailsActivity.KEY_URL, newsUrl);
+                startActivity(detailsIntent);
             }
 
 
